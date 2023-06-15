@@ -1,20 +1,39 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-<h2>Login</h2>
-<form action="/login" method="post">
-    <div>
-        <label>Email/Username:</label>
-        <input type="text" name="emailOrUsername" required>
-    </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password" required>
-    </div>
-    <button type="submit">Login</button>
-</form>
-</body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="/css/login.css">
+        <link rel="shortcut icon" href="chrome://branding/content/about-logo.png" type="image/x-icon">
+    </head>
+    <body>
+        <div class="wrapper">
+            <form action="/login" class="authbox" method="post">
+                <div class="authbox__main-container">
+                    <header class="authbox__main-header">
+                        <h1 class="authbox__title">С возвращением!</h1>
+                        <p class="authbox__text">Мы так рады видеть вас снова!</p>
+                    </header>
+                    <div class="authbox__body">
+                        <div class="authbox__block">
+                            <label for="input-default" class="authbox__label">
+                                Адрес электронной почты или номер телефона <span>*</span>
+                            </label>
+                            <input type="text" name="emailOrUsername" id="input-email" required>
+                        </div>
+                        <div class="authbox__block">
+                            <label for="input-password" class="authbox__label">Пароль <span>*</span></label>
+                            <input type="password" name="password" id="input-password">
+                        </div>
+                        <button type="submit" class="block-button">Вход</button>
+                        <div class="register-link">
+                            <span>Нужна учётная запись?</span><a href="register" class="inline-button">Зарегистрироваться</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="js/app.js"></script>
+    </body>
 </html>
