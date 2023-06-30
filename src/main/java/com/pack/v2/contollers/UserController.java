@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
     @Autowired
@@ -32,15 +34,18 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginUser(@RequestParam String emailOrUsername, @RequestParam String password) {
-        User user = userRepository.findByEmailOrUsername(emailOrUsername, emailOrUsername);
-        if (user != null && user.getPassword().equals(password)) {
-            // Успешная аутентификация
-            return "redirect:/";
-        } else {
-            // Неверные учетные данные, обработайте соответствующим образом
-            return "redirect:/login";
-        }
-    }
+//    @PostMapping("/login")
+//    public String loginUser(@RequestParam String emailOrUsername, @RequestParam String password) {
+//        Optional<User> userOptional = userRepository.findByUsername(emailOrUsername);
+//        if (userOptional.isPresent()) {
+//            User user = userOptional.get();
+//            if (user.getPassword().equals(password)) {
+//                // Успешная аутентификация
+//                return "redirect:/";
+//            }
+//        }
+//        // Неверные учетные данные, обработайте соответствующим образом
+//        return "redirect:/login";
+//    }
+
 }
