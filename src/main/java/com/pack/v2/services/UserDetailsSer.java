@@ -23,9 +23,15 @@ public class UserDetailsSer implements UserDetailsService {
         Optional<User> user = userRepository.findByUsername(username);
 
         if (user.isEmpty()) {
+            // Если пользователь не найден по имени пользователя, попробуйте найти его по адресу электронной почты
+            user = userRepository.findByEmail(username);
+        }
+
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found!");
         }
 
         return new UserDet(user.get());
     }
+
 }

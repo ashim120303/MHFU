@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,17 +20,20 @@
                             <label for="input-default" class="authbox__label">
                                 Адрес электронной почты или номер телефона <span>*</span>
                             </label>
-                            <input type="text" name="emailOrUsername" id="input-email" required>
+                            <input type="text" name="username" id="input-email" required>
                         </div>
                         <div class="authbox__block">
                             <label for="input-password" class="authbox__label">Пароль <span>*</span></label>
                             <input type="password" name="password" id="input-password">
                         </div>
-                        <button type="submit" class="block-button">Вход</button>
+                        <button type="submit" class="block-button" value="Login">Вход</button>
                         <div class="register-link">
                             <span>Нужна учётная запись?</span><a href="register" class="inline-button">Зарегистрироваться</a>
                         </div>
                     </div>
+                </div>
+                <div th:if="${param.error}" style="color: red">
+                    Неправильные имя пользователя, адрес электронной почты или пароль
                 </div>
             </form>
         </div>
