@@ -13,7 +13,6 @@ import java.util.Optional;
 @Service
 public class UserDetailsSer implements UserDetailsService {
     private final UserRepository userRepository;
-
     public UserDetailsSer(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -21,17 +20,13 @@ public class UserDetailsSer implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
-
         if (user.isEmpty()) {
             // Если пользователь не найден по имени пользователя, попробуйте найти его по адресу электронной почты
             user = userRepository.findByEmail(username);
         }
-
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found!");
         }
-
         return new UserDet(user.get());
     }
-
 }

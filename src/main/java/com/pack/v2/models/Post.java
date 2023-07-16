@@ -14,23 +14,11 @@ public class Post {
     public String imageName;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
-
     // Геттеры и сеттеры:
-
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
     public String getTitle() {return title;}
@@ -41,6 +29,8 @@ public class Post {
     public void setImageName(String imageName) {this.imageName = imageName;}
     public Date getCreatedDate() {return createdDate;}
     public void setCreatedDate(Date createdDate) {this.createdDate = createdDate;}
+    public User getUser() {return user;}
+    public void setUser(User user) {this.user = user;}
 
     //  Конструкторы:
     public Post() {}

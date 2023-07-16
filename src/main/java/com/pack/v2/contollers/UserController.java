@@ -33,19 +33,4 @@ public class UserController {
     public String showLoginForm() {
         return "login";
     }
-
-//    @PostMapping("/login")
-//    public String loginUser(@RequestParam String emailOrUsername, @RequestParam String password) {
-//        Optional<User> userOptional = userRepository.findByUsername(emailOrUsername);
-//        if (userOptional.isPresent()) {
-//            User user = userOptional.get();
-//            if (user.getPassword().equals(password)) {
-//                // Успешная аутентификация
-//                return "redirect:/";
-//            }
-//        }
-//        // Неверные учетные данные, обработайте соответствующим образом
-//        return "redirect:/login";
-//    }
-
 }

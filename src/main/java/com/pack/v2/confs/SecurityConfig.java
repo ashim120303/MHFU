@@ -41,24 +41,4 @@ public class SecurityConfig {
         auth.authenticationProvider(authProvider);
 
     }
-
-
-
-
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers("/css/login.css", "/css/register.css","/auth/login", "/img/ath-bg.jpg","/register", "/login").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin((form) -> form
-//                        .loginPage("/login")
-//                        .permitAll()
-//                )
-//                .logout((logout) -> logout.permitAll());
-//
-//        return http.build();
-//    }
 }

@@ -38,7 +38,6 @@ public class AuthProviderImpl implements AuthenticationProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, password, Collections.emptyList());
     }
 
-
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);

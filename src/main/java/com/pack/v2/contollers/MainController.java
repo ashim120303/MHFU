@@ -29,11 +29,12 @@ import java.util.Optional;
 
 @Controller
 public class MainController {
-    @Autowired // Ссылка на репозиторий
+    @Autowired // Ссылки на репозитории
     private PostRepository postRepository;
     @Autowired
     private UserRepository userRepository;
     private static final String UPLOAD_DIR = "./uploads"; // Путь до дериктории с img
+
 
     @GetMapping("/") // Вывод главной
     private String home(Model model, Principal principal) {
@@ -62,24 +63,6 @@ public class MainController {
             }
         }
         return "index";
-    }
-    @GetMapping("/note/{id}") // Динамическая страница записи по id
-    public String note(@PathVariable(value = "id") long id, Model model, Principal principal) {
-        if(!postRepository.existsById(id)){
-            // Проверка на существование записи и перебрасывание в 404.html
-            return "404";
-        }
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
-        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
-        model.addAttribute("posts", posts);
-
-
-        Optional<Post> post = postRepository.findById(id); // Вывод заметки по id
-        ArrayList<Post> res = new ArrayList<>();
-        post.ifPresent(res::add);
-        model.addAttribute("post", res);
-
-        return "note";
     }
 
     @PostMapping("/") // Сохранение заголовка и текста
@@ -130,23 +113,51 @@ public class MainController {
         }
     }
 
-    @GetMapping("/note/{id}/edit") // Переход на редактирование
-    public String edit(@PathVariable(value = "id") long id, Model model, Principal principal) {
-        if(!postRepository.existsById(id)){
+
+    @GetMapping("/note/{id}") // Динамическая страница записи по id
+    public String note(@PathVariable(value = "id") long id, Model model, Principal principal) {
+        Optional<Post> postOpt = postRepository.findById(id);
+        if (postOpt.isEmpty()){
             // Проверка на существование записи и перебрасывание в 404.html
             return "404";
         }
-        Optional<Post> post = postRepository.findById(id); // Вывод заметки по id
-        ArrayList<Post> res = new ArrayList<>();
-        post.ifPresent(res::add);
-        model.addAttribute("post", res);
 
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+        Post post = postOpt.get();
+
+        if(!post.getUser().equals(user)) {
+            return "404";
+        }
+
+        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
+        model.addAttribute("posts", posts);
+
+        ArrayList<Post> res = new ArrayList<>();
+        res.add(post);
+        model.addAttribute("post", res);
+
+        return "note";
+    }
+
+    @GetMapping("/note/{id}/edit") // Переход на редактирование
+    public String edit(@PathVariable(value = "id") long id, Model model, Principal principal) {
+        Optional<Post> postOpt = postRepository.findById(id);
+        if (postOpt.isEmpty()){
+            // Проверка на существование записи и перебрасывание в 404.html
+            return "404";
+        }
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+        Post post = postOpt.get();
+        if(!post.getUser().equals(user)) {
+            return "404";
+        }
+        ArrayList<Post> res = new ArrayList<>();
+        res.add(post);
+        model.addAttribute("post", res);
         List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         return "edit";
     }
-
     @PostMapping("/note/{id}/edit")
     private String editPost(@RequestParam String title, String text, Long id, Model model,
                             @RequestParam(value = "image", required = false) MultipartFile file,
@@ -198,8 +209,17 @@ public class MainController {
         }
     }
     @PostMapping("/note/{id}/remove")
-    private String removePost(@PathVariable(value = "id") long id, Model model){
-        Post post = postRepository.findById(id).orElseThrow();
+    private String removePost(@PathVariable(value = "id") long id, Principal principal){
+        Optional<Post> postOpt = postRepository.findById(id);
+        if (postOpt.isEmpty()){
+            // Проверка на существование записи и перебрасывание в 404.html
+            return "404";
+        }
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+        Post post = postOpt.get();
+        if(!post.getUser().equals(user)) {
+            return "404";
+        }
         postRepository.delete(post);
         return "redirect:/";
     }
