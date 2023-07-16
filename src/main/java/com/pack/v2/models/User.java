@@ -2,6 +2,8 @@ package com.pack.v2.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class User {
     @Id
@@ -17,7 +19,19 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Post> posts;
+
     // Геттеры и сеттеры
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     public Long getId() {
         return id;
     }

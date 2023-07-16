@@ -1,7 +1,9 @@
 package com.pack.v2.contollers;
 
 import com.pack.v2.models.Post;
+import com.pack.v2.models.User;
 import com.pack.v2.repositories.PostRepository;
+import com.pack.v2.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,11 +31,14 @@ import java.util.Optional;
 public class MainController {
     @Autowired // Ссылка на репозиторий
     private PostRepository postRepository;
+    @Autowired
+    private UserRepository userRepository;
     private static final String UPLOAD_DIR = "./uploads"; // Путь до дериктории с img
 
     @GetMapping("/") // Вывод главной
-    private String home(Model model) {
-        Iterable <Post> posts = postRepository.findAllByOrderByCreatedDateDesc();
+    private String home(Model model, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
 
         //Удаление ненужных картин
@@ -58,13 +64,15 @@ public class MainController {
         return "index";
     }
     @GetMapping("/note/{id}") // Динамическая страница записи по id
-    public String note(@PathVariable(value = "id") long id, Model model) {
+    public String note(@PathVariable(value = "id") long id, Model model, Principal principal) {
         if(!postRepository.existsById(id)){
             // Проверка на существование записи и перебрасывание в 404.html
             return "404";
         }
-        Iterable <Post> posts = postRepository.findAllByOrderByCreatedDateDesc(); // Вывод всех ссылок на заметки
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
+
 
         Optional<Post> post = postRepository.findById(id); // Вывод заметки по id
         ArrayList<Post> res = new ArrayList<>();
@@ -76,7 +84,7 @@ public class MainController {
 
     @PostMapping("/") // Сохранение заголовка и текста
     private String addPost(@RequestParam String title, Long id, String text, String imageName, Model model,
-                           @RequestParam(value = "image", required = false) MultipartFile file) throws IOException{
+                           @RequestParam(value = "image", required = false) MultipartFile file, Principal principal) throws IOException{
         String fileName = null;
         if(file != null && !file.isEmpty()) {
             fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -110,7 +118,12 @@ public class MainController {
             post.setText(text);
             post.setImageName(fileName);
             post.setCreatedDate(new Date());
-            postRepository.save(post);
+            Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+            if(optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                post.setUser(user);
+                postRepository.save(post);
+            }
             return "redirect:/note/" + post.getId();
         }else {
             return "redirect:/";
@@ -118,7 +131,7 @@ public class MainController {
     }
 
     @GetMapping("/note/{id}/edit") // Переход на редактирование
-    public String edit(@PathVariable(value = "id") long id, Model model) {
+    public String edit(@PathVariable(value = "id") long id, Model model, Principal principal) {
         if(!postRepository.existsById(id)){
             // Проверка на существование записи и перебрасывание в 404.html
             return "404";
@@ -128,7 +141,8 @@ public class MainController {
         post.ifPresent(res::add);
         model.addAttribute("post", res);
 
-        Iterable <Post> posts = postRepository.findAllByOrderByCreatedDateDesc(); // Вывод всех ссылок на заметки
+        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
+        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         return "edit";
     }
@@ -136,7 +150,7 @@ public class MainController {
     @PostMapping("/note/{id}/edit")
     private String editPost(@RequestParam String title, String text, Long id, Model model,
                             @RequestParam(value = "image", required = false) MultipartFile file,
-                            @RequestParam(value = "deleteImage", required = false) String deleteImage) throws IOException {
+                            @RequestParam(value = "deleteImage", required = false) String deleteImage, Principal principal) throws IOException {
         Post post = postRepository.findById(id).orElseThrow();
         String fileName = post.getImageName();
         if (file != null && !file.isEmpty()) {
@@ -170,7 +184,12 @@ public class MainController {
             post.setText(text);
             post.setImageName(fileName);
             post.setCreatedDate(new Date());
-            postRepository.save(post);
+            Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+            if(optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                post.setUser(user);
+                postRepository.save(post);
+            }
             return "redirect:/note/{id}";
         }else{
             post = postRepository.findById(id).orElseThrow();

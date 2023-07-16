@@ -15,7 +15,22 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
+
+
     // Геттеры и сеттеры:
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
     public String getTitle() {return title;}
