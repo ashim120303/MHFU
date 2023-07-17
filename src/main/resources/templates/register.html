@@ -9,8 +9,7 @@
     </head>
     <body>
         <div class="wrapper">
-            <form action="/register" class="authbox" method="post">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <form th:action="@{/register}" class="authbox" th:method="post">
                 <h1 class="authbox__title">Создать учётную запись</h1>
                 <div class="authbox__body">
                     <label class="authbox__label">
