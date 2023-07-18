@@ -31,14 +31,11 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .failureUrl("/login?error"));
-
-
         return http.build();
     }
 
     // Этот метод настраивает Аутентификацию
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider);
-
     }
 }

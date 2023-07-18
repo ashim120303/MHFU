@@ -4,6 +4,7 @@ import com.pack.v2.models.Post;
 import com.pack.v2.models.User;
 import com.pack.v2.repositories.PostRepository;
 import com.pack.v2.repositories.UserRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,14 +35,24 @@ public class MainController {
     @Autowired
     private UserRepository userRepository;
     private static final String UPLOAD_DIR = "./uploads"; // Путь до дериктории с img
-
+    private Path uploadPath;
+    @PostConstruct // Создание дериктории uploads если ее нет
+    public void addUploadsDir() {
+        uploadPath = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(uploadPath)) {
+            try {
+                Files.createDirectories(uploadPath);
+            } catch (IOException e) {
+                throw new RuntimeException("Could not create upload directory", e);
+            }
+        }
+    }
 
     @GetMapping("/") // Вывод главной
     private String home(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
         List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
-
         //Удаление ненужных картин
         // Получаем список всех файлов в директории uploads
         File uploadDir = new File(UPLOAD_DIR);
@@ -64,17 +75,12 @@ public class MainController {
         }
         return "index";
     }
-
     @PostMapping("/") // Сохранение заголовка и текста
     private String addPost(@RequestParam String title, Long id, String text, String imageName, Model model,
                            @RequestParam(value = "image", required = false) MultipartFile file, Principal principal) throws IOException{
         String fileName = null;
         if(file != null && !file.isEmpty()) {
             fileName = StringUtils.cleanPath(file.getOriginalFilename());
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
             // Проверяем, существует ли файл с таким же именем
             Path filePath = uploadPath.resolve(fileName);
             int count = 0;
@@ -113,7 +119,6 @@ public class MainController {
         }
     }
 
-
     @GetMapping("/note/{id}") // Динамическая страница записи по id
     public String note(@PathVariable(value = "id") long id, Model model, Principal principal) {
         Optional<Post> postOpt = postRepository.findById(id);
@@ -121,21 +126,16 @@ public class MainController {
             // Проверка на существование записи и перебрасывание в 404.html
             return "404";
         }
-
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
         Post post = postOpt.get();
-
         if(!post.getUser().equals(user)) {
             return "404";
         }
-
         List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
-
         ArrayList<Post> res = new ArrayList<>();
         res.add(post);
         model.addAttribute("post", res);
-
         return "note";
     }
 
