@@ -1,6 +1,10 @@
 package com.pack.v2.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -8,12 +12,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(min = 6, max = 254)
+    @Email
+    @NotEmpty
     @Column(nullable = false, unique = true)
     private String email;
+
+    @NotEmpty
+    @Size(min = 3, max = 15)
     @Column(nullable = false, unique = true)
     private String username;
+
+    @NotEmpty
+    @Size(min = 8, max = 128)
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$", message = "В пароле должны присутствовать цифры и английские буквы (верхний и нижний регистр)")
     @Column(nullable = false)
     private String password;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> posts;
 
@@ -35,5 +51,4 @@ public class User {
         this.username = username;
         this.email = email;
     }
-
 }

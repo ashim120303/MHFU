@@ -9,21 +9,25 @@
     </head>
     <body>
         <div class="wrapper">
-            <form th:action="@{/register}" class="authbox" th:method="post">
+            <form th:action="@{/register}" class="authbox" th:method="post" th:object="${user}">
                 <h1 class="authbox__title">Создать учётную запись</h1>
                 <div class="authbox__body">
                     <label class="authbox__label">
                         E-MAIL
                         <input type="email" name="email" id="" required>
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error">Invalid email</span>
                     </label>
                     <label class="authbox__label">
                         ИМЯ ПОЛЬЗОВАТЕЛЯ
                         <input type="text" name="username" id="" required>
+                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error">Invalid username</span>
                     </label>
                     <label class="authbox__label">
                         ПАРОЛЬ
                         <input type="password" name="password" id="" required>
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error">Invalid password</span>
                     </label>
+
                     <button type="submit" class="block-button">Продолжить</button>
                     <a href="/login" class="inline-button">Уже зарегистрированы?</a>
                 </div>
