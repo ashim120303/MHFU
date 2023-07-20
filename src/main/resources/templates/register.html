@@ -22,12 +22,13 @@
                         <input type="text" name="username" id="" required>
                         <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error">Invalid username</span>
                     </label>
-                    <label class="authbox__label">
-                        ПАРОЛЬ
-                        <input type="password" name="password" id="" required>
+                    <label class="authbox__label">ПАРОЛЬ
+                        <div class="input-wrapper">
+                            <input type="password" name="password" id="register-input-password" required>
+                            <img src="/img/eye.png" id="register-toggle-password" onclick="togglePassword(event, 'register-input-password', 'register-toggle-password')" style="cursor: pointer;">
+                        </div>
                         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error">Invalid password</span>
                     </label>
-
                     <button type="submit" class="block-button">Продолжить</button>
                     <a href="/login" class="inline-button">Уже зарегистрированы?</a>
                 </div>

@@ -25,7 +25,10 @@
                         </div>
                         <div class="authbox__block">
                             <label for="input-password" class="authbox__label">Пароль <span>*</span></label>
-                            <input type="password" name="password" id="input-password">
+                            <div class="input-wrapper">
+                                <input type="password" name="password" id="input-password" class="password-input">
+                                <img src="/img/eye.png" id="toggle-password" onclick="togglePassword(event, 'input-password', 'toggle-password')" style="cursor: pointer;">
+                            </div>
                         </div>
                         <button type="submit" class="block-button" value="Login">Вход</button>
                         <div class="register-link">

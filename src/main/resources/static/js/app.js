@@ -56,3 +56,17 @@ function clearInput() {
 }
 
 imageDelButton.style.display = src !== '/uploads/null' || fileInput.files.length > 0 ? 'block' : 'none';
+
+// Показать - Скрыть пароль
+function togglePassword(event, inputId, toggleId) {
+    event.preventDefault();
+    var x = document.getElementById(inputId);
+    var img = document.getElementById(toggleId);
+    if (x.type === "password") {
+        x.type = "text";
+        img.src = "/../img/hidden.png";
+    } else {
+        x.type = "password";
+        img.src = "/../img/eye.png";
+    }
+}

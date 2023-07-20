@@ -26,7 +26,7 @@ public class User {
 
     @NotEmpty
     @Size(min = 8, max = 128)
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$", message = "В пароле должны присутствовать цифры и английские буквы (верхний и нижний регистр)")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[0-9]).*$", message = "В пароле должны присутствовать английские буквы и цифры")
     @Column(nullable = false)
     private String password;
 
