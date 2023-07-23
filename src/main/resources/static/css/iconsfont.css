@@ -29,6 +29,7 @@
 .icon-logout:before {
   content: "\e907";
   color: #aaa;
+  cursor: pointer;
 }
 .icon-trash:before {
   content: "\e902";
