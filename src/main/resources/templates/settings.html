@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MHFU</title>
+  <link rel="stylesheet" href="/css/iconsfont.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="chrome://branding/content/about-logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/settings.css">
+</head>
+<body>
+<div class="wrapper">
+  <img src="/img/bg.jpg" alt="bg" class="wrapper__bg">
+  <aside class="sidebar">
+    <header class="header">
+      <ul class="header__list">
+        <li>
+          <form th:action="@{/logout}" th:method="post">
+            <button type="submit" class="header__link icon-logout" title="Выход"></button>
+          </form>
+        </li>
+        <li><a href="" title="Настройки" class="header__link icon-settings"></a></li>
+        <li><a href="" title="Закладки" class="header__link icon-bookmark"></a></li>
+        <li><a href="" title="Корзина" class="header__link icon-trash"></a></li>
+        <li><a href="" title="Справка" class="header__link icon-help"></a></li>
+      </ul>
+      <a class="add-notes" th:href="@{/}"><span class="icon-add"></span> ДОБАВИТЬ ЗАМЕТКУ</a>
+    </header>
+    <ul class="notes">
+      <li class="notes__item" th:each="el : ${posts}">
+        <a th:href="'/note/' + ${el.id}" class="notes__link"></a>
+        <span class="notes__hover">Нажмите чтобы открыть заметку</span>
+        <h3 class="notes__title" th:text="${el.title}" />
+        <div class="notes__text" th:text="${el.text}" />
+        <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
+      </li>
+    </ul>
+  </aside>
+  <main class="content">
+    <div class="note">
+      <button id="myBtn">Удалить аккаунт</button>
+
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Вы действительно хотите безвозвратно удалить аккаунт?</p>
+          <p>Удаление аккаунта приведет к безвозвратной потери всех ваших записей.</p>
+          <p>пожалуйста введите пароль для удаления аккаунта!</p>
+          <form action="">
+            <input type="text" name="password">
+            <br>
+            <button type="submit">Удалить аккаунт</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!--Modal window-->
+
+<script src="/js/settings.js"></script>
+</body>
+</html>

@@ -60,8 +60,8 @@ imageDelButton.style.display = src !== '/uploads/null' || fileInput.files.length
 // Показать - Скрыть пароль
 function togglePassword(event, inputId, toggleId) {
     event.preventDefault();
-    var x = document.getElementById(inputId);
-    var img = document.getElementById(toggleId);
+    let x = document.getElementById(inputId);
+    let img = document.getElementById(toggleId);
     if (x.type === "password") {
         x.type = "text";
         img.src = "/../img/hidden.png";
