@@ -21,16 +21,12 @@ import java.util.Optional;
 
 @Controller
 public class SettingsController {
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PostRepository postRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @GetMapping("/settings")
     private String settings(@RequestParam(required = false) String error, Model model) {
         if (error != null) {
@@ -38,7 +34,6 @@ public class SettingsController {
         }
         return "settings";
     }
-
     @PostMapping("/settings")
     private String deleteAccount(@RequestParam String password, Principal principal, HttpServletRequest request) {
         // получение текущего пользователя
