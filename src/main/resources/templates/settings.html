@@ -40,6 +40,7 @@
   <main class="content">
     <div class="note">
       <button class="modal-btn" id="myBtn">Удалить аккаунт</button>
+      <p class="password-error" th:if="${error}" th:text="${error}"></p>
 
       <div id="myModal" class="modal">
         <div class="modal-content">
@@ -47,7 +48,7 @@
           <p class="modal-item">Аккаунт и все его записи будут безвозвратно утеряны.</p>
           <p class="modal-item">Вы уверены в этом?</p>
           <p class="modal-item">Пожалуйста введите пароль для удаления аккаунта.</p>
-          <form action="/settings" method="post">
+          <form th:action="@{/settings}" th:method="post">
             <div class="input-wrapper">
               <input class="modal-item" type="password" name="password" id="input-password">
               <img src="/img/eye.png" id="toggle-password" onclick="togglePassword(event, 'input-password', 'toggle-password')" style="cursor: pointer;">

@@ -1,6 +1,10 @@
 .note{
     padding: 20px;
 }
+.password-error{
+    color: red;
+    font-size: 16px;
+}
 .modal-btn{
     cursor: pointer;
 }
