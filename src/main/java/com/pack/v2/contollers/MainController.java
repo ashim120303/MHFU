@@ -51,7 +51,7 @@ public class MainController {
     @GetMapping("/") // Вывод главной
     private String home(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
-        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
+        List<Post> posts = postRepository.findAllByUserIdAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         //Удаление ненужных картин
         // Получаем список всех файлов в директории uploads
@@ -107,6 +107,7 @@ public class MainController {
             post.setText(text);
             post.setImageName(fileName);
             post.setCreatedDate(new Date());
+            post.setIsDeleted(false);
             Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
             if(optionalUser.isPresent()) {
                 User user = optionalUser.get();
@@ -131,7 +132,7 @@ public class MainController {
         if(!post.getUser().equals(user)) {
             return "404";
         }
-        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
+        List<Post> posts = postRepository.findAllByUserIdAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         ArrayList<Post> res = new ArrayList<>();
         res.add(post);
@@ -154,7 +155,7 @@ public class MainController {
         ArrayList<Post> res = new ArrayList<>();
         res.add(post);
         model.addAttribute("post", res);
-        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(user.getId());
+        List<Post> posts = postRepository.findAllByUserIdAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         return "edit";
     }
@@ -201,26 +202,15 @@ public class MainController {
                 post.setUser(user);
                 postRepository.save(post);
             }
-            return "redirect:/note/{id}";
+            if(post.getIsDeleted()) {
+                return "redirect:/trash/note/{id}";
+            } else{
+                return "redirect:/note/{id}";
+            }
         }else{
             post = postRepository.findById(id).orElseThrow();
             postRepository.delete(post);
             return "redirect:/";
         }
-    }
-    @PostMapping("/note/{id}/remove")
-    private String removePost(@PathVariable(value = "id") long id, Principal principal){
-        Optional<Post> postOpt = postRepository.findById(id);
-        if (postOpt.isEmpty()){
-            // Проверка на существование записи и перебрасывание в 404.html
-            return "404";
-        }
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
-        Post post = postOpt.get();
-        if(!post.getUser().equals(user)) {
-            return "404";
-        }
-        postRepository.delete(post);
-        return "redirect:/";
     }
 }

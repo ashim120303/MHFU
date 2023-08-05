@@ -17,6 +17,9 @@ public class Post {
     @ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
+    private boolean isDeleted;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date isDeletedDate;
 
     // Геттеры и сеттеры:
     public Long getId() {return id;}
@@ -31,6 +34,10 @@ public class Post {
     public void setCreatedDate(Date createdDate) {this.createdDate = createdDate;}
     public User getUser() {return user;}
     public void setUser(User user) {this.user = user;}
+    public boolean getIsDeleted() {return isDeleted;}
+    public void setIsDeleted(boolean deleted) {isDeleted = deleted;}
+    public Date getIsDeletedDate() {return isDeletedDate;}
+    public void setIsDeletedDate(Date isDeletedDate) {this.isDeletedDate = isDeletedDate;}
 
     //  Конструкторы:
     public Post() {}

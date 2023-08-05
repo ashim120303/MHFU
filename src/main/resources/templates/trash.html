@@ -29,31 +29,29 @@
         </header>
         <ul class="notes">
             <li class="notes__item" th:each="el : ${posts}">
-                <a th:href="'/note/' + ${el.id}" class="notes__link"></a>
+                <a th:href="'/trash/note/' + ${el.id}" class="notes__link"></a>
                 <span class="notes__hover">Нажмите чтобы открыть заметку</span>
                 <h3 class="notes__title" th:text="${el.title}" />
                 <div class="notes__text" th:text="${el.text}" />
                 <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
-
             </li>
         </ul>
     </aside>
-    <main class="content" th:each="el : ${post}">
-        <form th:action="'/note/'+${el.id} +'/edit'" class="create-note" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" th:value="${el.id}">
-            <input type="text" placeholder="Введите заголовок" class="create-note__title" name="title" th:value="${el.title}">
-            <textarea name="text" class="create-note__text" placeholder="Введите текст" th:text="${el.text}" />
-            <label class="preview preview-show">
-                <input type="file" name="image" accept="image/*" id="file-input" class="file-input" th:value="${el.imageName}">
-                <img id="preview-image" th:src="@{/uploads/} + ${el.imageName}" alt="" class="preview-image">
-                <button type="button" class="image-del icon-add" onclick="clearInput()" id="image-del-button"></button>
-            </label>
-            <div class="form-block">
-                <label for="file-input" class="button">Выбрать изображение</label>
-                <button type="submit" class="button">Обновить</button>
+    <main class="content">
+        <div class="note" th:each="el : ${post}">
+            <div class="note__setting">
+                <a th:href="'/note/' + ${el.id} + '/edit'" class="note__item icon-edit" title="Редактирование"></a>
+                <form th:action="'/note/' + ${el.id} + '/removeForever'" method="post">
+                    <button class="note__item icon-trash"  type="submit" title="Безвозвратное удаление"></button>
+                </form>
+                <form th:action="'/note/' + ${el.id} + '/restore'" method="post">
+                    <button class="note__item icon-bookmark" type="submit" title="Восстановить" style="color: red;"></button>
+                </form>
             </div>
-            <input type="hidden" name="deleteImage" id="delete-image-input">
-        </form>
+            <h2 class="note__title" th:text="${el.title}" />
+            <div class="note__image" th:if="${el.imageName}"><img th:src="@{/uploads/} + ${el.imageName}" th:alt="${el.imageName}"></div>
+            <div class="note__text" th:text="${el.text}" />
+        </div>
     </main>
 </div>
 </body>

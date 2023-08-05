@@ -22,7 +22,7 @@
                 </li>
                 <li><a th:href="@{/settings}" title="Настройки" class="header__link icon-settings"></a></li>
                 <li><a href="" title="Закладки" class="header__link icon-bookmark"></a></li>
-                <li><a href="" title="Корзина" class="header__link icon-trash"></a></li>
+                <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
                 <li><a href="" title="Справка" class="header__link icon-help"></a></li>
             </ul>
             <a class="add-notes" th:href="@{/}"><span class="icon-add"></span> ДОБАВИТЬ ЗАМЕТКУ</a>
@@ -42,7 +42,7 @@
             <div class="note__setting">
                 <a th:href="'/note/' + ${el.id} + '/edit'" class="note__item icon-edit" title="Редактирование"></a>
                 <form th:action="${el.id} + '/remove'" method="post">
-                    <button class="note__item icon-trash" type="submit" title="Безвозвратное удаление"></button>
+                    <button class="note__item icon-trash" type="submit" title="В корзину"></button>
                 </form>
                 <a href="" class="note__item icon-bookmark" title="Сохранить в закладки"></a>
             </div>
