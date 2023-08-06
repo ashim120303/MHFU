@@ -28,7 +28,7 @@
 
 .icon-restore:before {
   content: "\e908";
-  color: #aaa;
+  color: green;
   cursor: pointer;
 }
 .icon-trash-red:before {

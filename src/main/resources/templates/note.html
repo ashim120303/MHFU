@@ -33,7 +33,10 @@
                 <span class="notes__hover">Нажмите чтобы открыть заметку</span>
                 <h3 class="notes__title" th:text="${el.title}" />
                 <div class="notes__text" th:text="${el.text}" />
-                <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
+                <div class="notes__icons">
+                    <div class="notes__icon" th:classappend="${el.isStarred} ? 'icon-bookmark-starred' : ''"></div>
+                    <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
+                </div>
             </li>
         </ul>
     </aside>

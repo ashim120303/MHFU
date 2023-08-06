@@ -51,7 +51,7 @@ public class MainController {
     @GetMapping("/") // Вывод главной
     private String home(Model model, Principal principal) {
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
-        List<Post> posts = postRepository.findAllByUserIdAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
+        List<Post> posts = postRepository.findAllByUserIdOrderByIsStarredDescCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         //Удаление ненужных картин
         // Получаем список всех файлов в директории uploads
@@ -136,7 +136,7 @@ public class MainController {
         if(post.getIsDeleted()){
             return "404";
         }
-        List<Post> posts = postRepository.findAllByUserIdAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
+        List<Post> posts = postRepository.findAllByUserIdOrderByIsStarredDescCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         ArrayList<Post> res = new ArrayList<>();
         res.add(post);
@@ -162,7 +162,7 @@ public class MainController {
         ArrayList<Post> res = new ArrayList<>();
         res.add(post);
         model.addAttribute("post", res);
-        List<Post> posts = postRepository.findAllByUserIdAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
+        List<Post> posts = postRepository.findAllByUserIdOrderByIsStarredDescCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         return "edit";
     }
