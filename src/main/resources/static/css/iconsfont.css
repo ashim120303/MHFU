@@ -1,17 +1,17 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('/../fonts/icomoon.eot?6lg9m5');
-  src:  url('/../fonts/icomoon.eot?6lg9m5#iefix') format('embedded-opentype'),
-    url('/../fonts/icomoon.ttf?6lg9m5') format('truetype'),
-    url('/../fonts/icomoon.woff?6lg9m5') format('woff'),
-    url('/../fonts/icomoon.svg?6lg9m5#icomoon') format('svg');
+  src:  url('/../fonts/icomoon.eot?y50h5j');
+  src:  url('/../fonts/icomoon.eot?y50h5j#iefix') format('embedded-opentype'),
+    url('/../fonts/icomoon.ttf?y50h5j') format('truetype'),
+    url('/../fonts/icomoon.woff?y50h5j') format('woff'),
+    url('/../fonts/icomoon.svg?y50h5j#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
 }
 
 [class^="icon-"]::before,
-[class*=" icon-"]::before {
+ [class*=" icon-"]::before {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: never;
@@ -26,14 +26,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-restore:before {
+  content: "\e908";
+  color: #aaa;
+  cursor: pointer;
+}
+.icon-trash-red:before {
+  content: "\e909";
+  color: #f00;
+  cursor: pointer;
+}
 .icon-logout:before {
   content: "\e907";
   color: #aaa;
-  cursor: pointer;
 }
 .icon-trash:before {
   content: "\e902";
   color: #aaa;
+  cursor: pointer;
 }
 .icon-bookmark:before {
   content: "\e905";

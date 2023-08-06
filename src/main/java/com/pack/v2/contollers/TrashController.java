@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,23 +29,6 @@ public class TrashController {
         model.addAttribute("posts", posts);
         return "trash";
     }
-    @PostMapping("/note/{id}/remove")
-    private String removePost(@PathVariable(value = "id") long id, Principal principal){
-        Optional<Post> postOpt = postRepository.findById(id);
-        if (postOpt.isEmpty()){
-            // Проверка на существование записи и перебрасывание в 404.html
-            return "404";
-        }
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
-        Post post = postOpt.get();
-        if(!post.getUser().equals(user)) {
-            return "404";
-        }
-        post.setIsDeleted(true);
-        post.setIsDeletedDate(new Date());
-        postRepository.save(post);
-        return "redirect:/";
-    }
     @GetMapping("/trash/note/{id}") // Динамическая страница записи по id
     public String trashNote(@PathVariable(value = "id") long id, Model model, Principal principal) {
         Optional<Post> postOpt = postRepository.findById(id);
@@ -59,6 +41,9 @@ public class TrashController {
         if(!post.getUser().equals(user)) {
             return "404";
         }
+        if(!post.getIsDeleted()){
+            return "404";
+        }
         List<Post> posts = postRepository.findAllByUserIdAndIsDeletedTrueOrderByIsDeletedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         ArrayList<Post> res = new ArrayList<>();
@@ -68,16 +53,7 @@ public class TrashController {
     }
     @PostMapping("/note/{id}/restore")
     private String restorePost(@PathVariable(value = "id") long id, Principal principal){
-        Optional<Post> postOpt = postRepository.findById(id);
-        if (postOpt.isEmpty()){
-            // Проверка на существование записи и перебрасывание в 404.html
-            return "404";
-        }
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
-        Post post = postOpt.get();
-        if(!post.getUser().equals(user)) {
-            return "404";
-        }
+        Post post = postRepository.findById(id).orElseThrow();
         post.setIsDeleted(false);
         post.setIsDeletedDate(null);
         postRepository.save(post);
@@ -85,16 +61,7 @@ public class TrashController {
     }
     @PostMapping("/note/{id}/removeForever")
     private String removeForever(@PathVariable(value = "id") long id, Principal principal){
-        Optional<Post> postOpt = postRepository.findById(id);
-        if (postOpt.isEmpty()){
-            // Проверка на существование записи и перебрасывание в 404.html
-            return "404";
-        }
-        User user = userRepository.findByUsername(principal.getName()).orElseThrow();
-        Post post = postOpt.get();
-        if(!post.getUser().equals(user)) {
-            return "404";
-        }
+        Post post = postRepository.findById(id).orElseThrow();
         postRepository.delete(post);
         return "redirect:/trash";
     }

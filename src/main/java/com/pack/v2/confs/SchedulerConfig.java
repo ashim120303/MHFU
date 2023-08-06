@@ -16,18 +16,17 @@ import java.util.List;
 public class SchedulerConfig {
     @Autowired // Ссылки на репозитории
     private PostRepository postRepository;
+
     @Scheduled(cron = "0 0 0 * * ?") // Запускается каждый день в полночь
     public void removeOldNotes() {
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.DAY_OF_MONTH, -1);
+        cal.add(Calendar.DAY_OF_MONTH, -30); // Уменьшаем текущую дату на 30 дней
         date = cal.getTime();
         List<Post> posts = postRepository.findAllByIsDeletedTrueAndIsDeletedDateBefore(date);
         for(Post post : posts) {
             postRepository.delete(post);
         }
     }
-
 }
-

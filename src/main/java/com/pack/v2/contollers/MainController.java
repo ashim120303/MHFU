@@ -132,6 +132,9 @@ public class MainController {
         if(!post.getUser().equals(user)) {
             return "404";
         }
+        if(post.getIsDeleted()){
+            return "404";
+        }
         List<Post> posts = postRepository.findAllByUserIdAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         ArrayList<Post> res = new ArrayList<>();
@@ -150,6 +153,9 @@ public class MainController {
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
         Post post = postOpt.get();
         if(!post.getUser().equals(user)) {
+            return "404";
+        }
+        if(post.getIsDeleted()){
             return "404";
         }
         ArrayList<Post> res = new ArrayList<>();
@@ -202,15 +208,19 @@ public class MainController {
                 post.setUser(user);
                 postRepository.save(post);
             }
-            if(post.getIsDeleted()) {
-                return "redirect:/trash/note/{id}";
-            } else{
-                return "redirect:/note/{id}";
-            }
+            return "redirect:/note/{id}";
         }else{
             post = postRepository.findById(id).orElseThrow();
             postRepository.delete(post);
             return "redirect:/";
         }
+    }
+    @PostMapping("/note/{id}/remove")
+    private String removePost(@PathVariable(value = "id") long id, Principal principal){
+        Post post = postRepository.findById(id).orElseThrow();
+        post.setIsDeleted(true);
+        post.setIsDeletedDate(new Date());
+        postRepository.save(post);
+        return "redirect:/";
     }
 }
