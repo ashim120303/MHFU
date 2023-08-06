@@ -49,6 +49,10 @@
   content: "\e905";
   color: #aaa;
 }
+.icon-bookmark-starred:before {
+  content: "\e905";
+  color: yellow;
+}
 .icon-user:before {
   content: "\e901";
   color: #aaa;

@@ -21,7 +21,7 @@
                     </form>
                 </li>
                 <li><a th:href="@{/settings}" title="Настройки" class="header__link icon-settings"></a></li>
-                <li><a href="" title="Закладки" class="header__link icon-bookmark"></a></li>
+                <li><a th:href="@{/starred}" title="Закладки" class="header__link icon-bookmark"></a></li>
                 <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
                 <li><a href="" title="Справка" class="header__link icon-help"></a></li>
             </ul>
@@ -44,7 +44,9 @@
                 <form th:action="${el.id} + '/remove'" method="post">
                     <button class="note__item icon-trash" type="submit" title="В корзину"></button>
                 </form>
-                <a href="" class="note__item icon-bookmark" title="Сохранить в закладки"></a>
+                <form th:action="${el.id} + '/starred'" method="post">
+                    <button class="note__item" th:classappend="${el.isStarred} ? 'icon-bookmark-starred' : 'icon-bookmark'" type="submit" title="В закладки"></button>
+                </form>
             </div>
             <h2 class="note__title" th:text="${el.title}" />
             <div class="note__image" th:if="${el.imageName}"><img th:src="@{/uploads/} + ${el.imageName}" th:alt="${el.imageName}"></div>

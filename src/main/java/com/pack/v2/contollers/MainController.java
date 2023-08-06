@@ -108,6 +108,7 @@ public class MainController {
             post.setImageName(fileName);
             post.setCreatedDate(new Date());
             post.setIsDeleted(false);
+            post.setIsStarred(false);
             Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
             if(optionalUser.isPresent()) {
                 User user = optionalUser.get();
@@ -220,6 +221,7 @@ public class MainController {
         Post post = postRepository.findById(id).orElseThrow();
         post.setIsDeleted(true);
         post.setIsDeletedDate(new Date());
+        post.setIsStarred(false);
         postRepository.save(post);
         return "redirect:/";
     }

@@ -11,5 +11,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByUserIdAndIsDeletedFalseOrderByCreatedDateDesc(Long userId);
     List<Post> findAllByUserIdAndIsDeletedTrueOrderByIsDeletedDateDesc(Long userId);
     List<Post> findAllByIsDeletedTrueAndIsDeletedDateBefore(Date date);
+    List<Post> findAllByUserIdAndIsStarredTrueAndIsDeletedFalseOrderByCreatedDateDesc(Long userId);
+
 }
 

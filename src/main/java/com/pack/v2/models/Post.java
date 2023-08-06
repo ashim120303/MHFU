@@ -20,6 +20,7 @@ public class Post {
     private boolean isDeleted;
     @Temporal(TemporalType.TIMESTAMP)
     private Date isDeletedDate;
+    private boolean isStarred;
 
     // Геттеры и сеттеры:
     public Long getId() {return id;}
@@ -38,6 +39,8 @@ public class Post {
     public void setIsDeleted(boolean deleted) {isDeleted = deleted;}
     public Date getIsDeletedDate() {return isDeletedDate;}
     public void setIsDeletedDate(Date isDeletedDate) {this.isDeletedDate = isDeletedDate;}
+    public boolean getIsStarred() {return isStarred;}
+    public void setIsStarred(boolean starred) {isStarred = starred;}
 
     //  Конструкторы:
     public Post() {}
