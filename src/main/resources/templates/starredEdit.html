@@ -29,7 +29,7 @@
         </header>
         <ul class="notes">
             <li class="notes__item" th:each="el : ${posts}">
-                <a th:href="'/starred/note/' + ${el.id}" class="notes__link"></a>
+                <a th:href="'/note/' + ${el.id}" class="notes__link"></a>
                 <span class="notes__hover">Нажмите чтобы открыть заметку</span>
                 <h3 class="notes__title" th:text="${el.title}" />
                 <div class="notes__text" th:text="${el.text}" />
@@ -37,15 +37,26 @@
                     <div class="notes__icon" th:classappend="${el.isStarred} ? 'icon-bookmark-starred' : ''"></div>
                     <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
                 </div>
+
             </li>
         </ul>
     </aside>
-    <main class="content">
-        <div class="note">
-            <div class="note__massage">
-                Здесь находятся заметки, которые вы добавили в избранное.
+    <main class="content" th:each="el : ${post}">
+        <form th:action="'/starred/note/'+${el.id} +'/edit'" class="create-note" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" th:value="${el.id}">
+            <input type="text" placeholder="Введите заголовок" class="create-note__title" name="title" th:value="${el.title}">
+            <textarea name="text" class="create-note__text" placeholder="Введите текст" th:text="${el.text}" />
+            <label class="preview preview-show">
+                <input type="file" name="image" accept="image/*" id="file-input" class="file-input" th:value="${el.imageName}">
+                <img id="preview-image" th:src="@{/uploads/} + ${el.imageName}" alt="" class="preview-image">
+                <button type="button" class="image-del icon-add" onclick="clearInput()" id="image-del-button"></button>
+            </label>
+            <div class="form-block">
+                <label for="file-input" class="button">Выбрать изображение</label>
+                <button type="submit" class="button">Обновить</button>
             </div>
-        </div>
+            <input type="hidden" name="deleteImage" id="delete-image-input">
+        </form>
     </main>
 </div>
 </body>

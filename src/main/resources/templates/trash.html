@@ -22,7 +22,7 @@
                 </li>
                 <li><a th:href="@{/settings}" title="Настройки" class="header__link icon-settings"></a></li>
                 <li><a th:href="@{/starred}" title="Закладки" class="header__link icon-bookmark"></a></li>
-                <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
+                <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash nav-focus"></a></li>
                 <li><a href="" title="Справка" class="header__link icon-help"></a></li>
             </ul>
             <a class="add-notes" th:href="@{/}"><span class="icon-add"></span> ДОБАВИТЬ ЗАМЕТКУ</a>
@@ -41,18 +41,10 @@
         </ul>
     </aside>
     <main class="content">
-        <div class="note" th:each="el : ${post}">
-            <div class="note__setting">
-                <form th:action="'/note/' + ${el.id} + '/removeForever'" method="post">
-                    <button class="note__item icon-trash-red"  type="submit" title="Безвозвратное удаление"></button>
-                </form>
-                <form th:action="'/note/' + ${el.id} + '/restore'" method="post">
-                    <button class="note__item icon-restore" type="submit" title="Восстановить" style="color: red;"></button>
-                </form>
+        <div class="note">
+            <div class="note__massage">
+                Заметки добавленные в корзину удаляются через 30 дней после добавления.
             </div>
-            <h2 class="note__title" th:text="${el.title}" />
-            <div class="note__image" th:if="${el.imageName}"><img th:src="@{/uploads/} + ${el.imageName}" th:alt="${el.imageName}"></div>
-            <div class="note__text" th:text="${el.text}" />
         </div>
     </main>
 </div>

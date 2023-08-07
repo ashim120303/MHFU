@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByUserIdOrderByCreatedDateDesc(Long userId);
-    List<Post> findAllByUserIdOrderByIsStarredDescCreatedDateDesc(Long userId);
+    List<Post> findAllByUserIdAndIsDeletedFalseOrderByIsStarredDescCreatedDateDesc(Long userId);
     List<Post> findAllByUserIdAndIsDeletedTrueOrderByIsDeletedDateDesc(Long userId);
     List<Post> findAllByIsDeletedTrueAndIsDeletedDateBefore(Date date);
     List<Post> findAllByUserIdAndIsStarredTrueAndIsDeletedFalseOrderByCreatedDateDesc(Long userId);

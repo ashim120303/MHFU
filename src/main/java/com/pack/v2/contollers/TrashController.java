@@ -49,7 +49,7 @@ public class TrashController {
         ArrayList<Post> res = new ArrayList<>();
         res.add(post);
         model.addAttribute("post", res);
-        return "trash";
+        return "trashNote";
     }
     @PostMapping("/note/{id}/restore")
     private String restorePost(@PathVariable(value = "id") long id, Principal principal){

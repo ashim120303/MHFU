@@ -21,30 +21,38 @@
                     </form>
                 </li>
                 <li><a th:href="@{/settings}" title="Настройки" class="header__link icon-settings"></a></li>
-                <li><a th:href="@{/starred}" title="Закладки" class="header__link icon-bookmark nav-focus"></a></li>
-                <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
+                <li><a th:href="@{/starred}" title="Закладки" class="header__link icon-bookmark"></a></li>
+                <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash nav-focus"></a></li>
                 <li><a href="" title="Справка" class="header__link icon-help"></a></li>
             </ul>
             <a class="add-notes" th:href="@{/}"><span class="icon-add"></span> ДОБАВИТЬ ЗАМЕТКУ</a>
         </header>
         <ul class="notes">
             <li class="notes__item" th:each="el : ${posts}">
-                <a th:href="'/starred/note/' + ${el.id}" class="notes__link"></a>
+                <a th:href="'/trash/note/' + ${el.id}" class="notes__link"></a>
                 <span class="notes__hover">Нажмите чтобы открыть заметку</span>
                 <h3 class="notes__title" th:text="${el.title}" />
                 <div class="notes__text" th:text="${el.text}" />
                 <div class="notes__icons">
-                    <div class="notes__icon" th:classappend="${el.isStarred} ? 'icon-bookmark-starred' : ''"></div>
+                    <div class="notes__icon" th:classappend="${el.isDeleted} ? 'icon-trash' : ''"></div>
                     <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
                 </div>
             </li>
         </ul>
     </aside>
     <main class="content">
-        <div class="note">
-            <div class="note__massage">
-                Здесь находятся заметки, которые вы добавили в избранное.
+        <div class="note" th:each="el : ${post}">
+            <div class="note__setting">
+                <form th:action="'/note/' + ${el.id} + '/removeForever'" method="post">
+                    <button class="note__item icon-trash-red"  type="submit" title="Безвозвратное удаление"></button>
+                </form>
+                <form th:action="'/note/' + ${el.id} + '/restore'" method="post">
+                    <button class="note__item icon-restore" type="submit" title="Восстановить" style="color: red;"></button>
+                </form>
             </div>
+            <h2 class="note__title" th:text="${el.title}" />
+            <div class="note__image" th:if="${el.imageName}"><img th:src="@{/uploads/} + ${el.imageName}" th:alt="${el.imageName}"></div>
+            <div class="note__text" th:text="${el.text}" />
         </div>
     </main>
 </div>
