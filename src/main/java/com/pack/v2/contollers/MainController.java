@@ -131,6 +131,13 @@ public class MainController {
 
     @GetMapping("/note/{id}") // Динамическая страница записи по id
     public String note(@PathVariable(value = "id") long id, Model model, Principal principal) {
+        // Применение выбранной темы
+        Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("userTheme", user.getTheme());
+        }
+
         Optional<Post> postOpt = postRepository.findById(id);
         if (postOpt.isEmpty()){
             // Проверка на существование записи и перебрасывание в 404.html
@@ -154,6 +161,13 @@ public class MainController {
 
     @GetMapping("/note/{id}/edit") // Переход на редактирование
     public String edit(@PathVariable(value = "id") long id, Model model, Principal principal) {
+        // Применение выбранной темы
+        Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("userTheme", user.getTheme());
+        }
+
         Optional<Post> postOpt = postRepository.findById(id);
         if (postOpt.isEmpty()){
             // Проверка на существование записи и перебрасывание в 404.html
