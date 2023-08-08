@@ -36,6 +36,7 @@ public class UserController {
             return "register";
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setTheme("/css/redTheme.css");
         userRepository.save(user);
         return "redirect:/login";
     }

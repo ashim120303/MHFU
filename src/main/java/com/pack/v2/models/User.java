@@ -33,6 +33,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> posts;
 
+    private String theme;
+
     // Геттеры и сеттеры
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
@@ -44,7 +46,9 @@ public class User {
     public void setPassword(String password) {this.password = password;}
     public List<Post> getPosts() {return posts;}
     public void setPosts(List<Post> posts) {this.posts = posts;}
-
+    public String getTheme() {return theme;}
+    public void setTheme(String theme) {this.theme = theme;}
+    
     // Конструкторы
     public User() {}
     public User(String username, String email) {

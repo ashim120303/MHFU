@@ -37,6 +37,13 @@ public class StarredController {
 
     @GetMapping("/starred")
     private String starred(Model model, Principal principal) {
+        // Применение выбранной темы
+        Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("userTheme", user.getTheme());
+        }
+
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
         List<Post> posts = postRepository.findAllByUserIdAndIsStarredTrueAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
@@ -44,6 +51,13 @@ public class StarredController {
     }
     @GetMapping("/starred/note/{id}") // Динамическая страница записи по id
     public String trashNote(@PathVariable(value = "id") long id, Model model, Principal principal) {
+        // Применение выбранной темы
+        Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("userTheme", user.getTheme());
+        }
+
         Optional<Post> postOpt = postRepository.findById(id);
         if (postOpt.isEmpty()){
             // Проверка на существование записи и перебрасывание в 404.html
@@ -75,6 +89,13 @@ public class StarredController {
 
     @GetMapping("/starred/note/{id}/edit") // Переход на редактирование
     public String edit(@PathVariable(value = "id") long id, Model model, Principal principal) {
+        // Применение выбранной темы
+        Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("userTheme", user.getTheme());
+        }
+
         Optional<Post> postOpt = postRepository.findById(id);
         if (postOpt.isEmpty()){
             // Проверка на существование записи и перебрасывание в 404.html

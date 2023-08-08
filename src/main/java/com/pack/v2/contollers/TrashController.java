@@ -24,6 +24,13 @@ public class TrashController {
     private UserRepository userRepository;
     @GetMapping("/trash") // Вывод корзины
     private String trash(Model model, Principal principal) {
+        // Применение выбранной темы
+        Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("userTheme", user.getTheme());
+        }
+
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
         List<Post> posts = postRepository.findAllByUserIdAndIsDeletedTrueOrderByIsDeletedDateDesc(user.getId());
         model.addAttribute("posts", posts);
@@ -31,6 +38,13 @@ public class TrashController {
     }
     @GetMapping("/trash/note/{id}") // Динамическая страница записи по id
     public String trashNote(@PathVariable(value = "id") long id, Model model, Principal principal) {
+        // Применение выбранной темы
+        Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("userTheme", user.getTheme());
+        }
+
         Optional<Post> postOpt = postRepository.findById(id);
         if (postOpt.isEmpty()){
             // Проверка на существование записи и перебрасывание в 404.html

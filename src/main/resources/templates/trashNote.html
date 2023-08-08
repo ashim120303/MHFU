@@ -6,12 +6,12 @@
     <title>MHFU</title>
     <link rel="stylesheet" href="/css/iconsfont.css">
     <link rel="stylesheet" href="/css/main.css">
+    <link id="theme-link" rel="stylesheet" th:href="${userTheme}">
     <link rel="shortcut icon" href="chrome://branding/content/about-logo.png" type="image/x-icon">
     <script src="/js/app.js" defer></script>
 </head>
 <body>
 <div class="wrapper">
-    <img src="/img/bg.jpg" alt="bg" class="wrapper__bg">
     <aside class="sidebar">
         <header class="header">
             <ul class="header__list">
@@ -56,5 +56,6 @@
         </div>
     </main>
 </div>
+<script src="/js/settings.js"></script>
 </body>
 </html>

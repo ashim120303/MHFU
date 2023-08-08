@@ -50,6 +50,13 @@ public class MainController {
 
     @GetMapping("/") // Вывод главной
     private String home(Model model, Principal principal) {
+        // Применение выбранной темы
+        Optional<User> optionalUser = userRepository.findByUsername(principal.getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            model.addAttribute("userTheme", user.getTheme());
+        }
+
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
         List<Post> posts = postRepository.findAllByUserIdAndIsDeletedFalseOrderByIsStarredDescCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
@@ -73,6 +80,7 @@ public class MainController {
                 file.delete();
             }
         }
+
         return "index";
     }
     @PostMapping("/") // Сохранение заголовка и текста
