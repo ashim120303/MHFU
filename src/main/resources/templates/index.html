@@ -11,51 +11,51 @@
   <script src="/js/app.js" defer></script>
 </head>
 <body>
-  <div class="wrapper">
-    <aside class="sidebar">
-      <header class="header">
-        <ul class="header__list">
-          <li>
-            <form th:action="@{/logout}" th:method="post">
-              <button type="submit" class="header__link icon-logout" title="Выход"></button>
-            </form>
-          </li>
-          <li><a th:href="@{/settings}" title="Настройки" class="header__link icon-settings"></a></li>
-          <li><a th:href="@{/starred}" title="Закладки" class="header__link icon-bookmark"></a></li>
-          <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
-          <li><a href="" title="Справка" class="header__link icon-help"></a></li>
-        </ul>
-        <div class="logo">MHFU</div>
-      </header>
-      <ul class="notes">
-        <li class="notes__item" th:each="el : ${posts}">
-          <a th:href="'/note/' + ${el.id}" class="notes__link"></a>
-          <span class="notes__hover">Нажмите чтобы открыть заметку</span>
-          <h3 class="notes__title" th:text="${el.title}" />
-          <div class="notes__text" th:text="${el.text}" />
-          <div class="notes__icons">
-            <div class="notes__icon" th:classappend="${el.isStarred} ? 'icon-bookmark-starred' : ''"></div>
-            <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
-          </div>
+<div class="wrapper">
+  <aside class="sidebar">
+    <header class="header">
+      <ul class="header__list">
+        <li>
+          <form th:action="@{/logout}" th:method="post">
+            <button type="submit" class="header__link icon-logout" title="Выход"></button>
+          </form>
         </li>
+        <li><a th:href="@{/settings}" title="Настройки" class="header__link icon-settings"></a></li>
+        <li><a th:href="@{/starred}" title="Закладки" class="header__link icon-bookmark"></a></li>
+        <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
+        <li><a href="" title="Справка" class="header__link icon-help"></a></li>
       </ul>
-    </aside>
-    <main class="content">
-      <form th:action="@{/}" class="create-note" th:method="post" enctype="multipart/form-data">
-        <input type="text" placeholder="Введите заголовок" class="create-note__title" name="title">
-        <textarea name="text" class="create-note__text" placeholder="Введите текст"></textarea>
-        <label class="preview">
-          <img id="preview-image" src="" alt="" class="preview-image">
-          <button type="button" class="image-del icon-add" onclick="clearInput()"></button>
-        </label>
-        <input type="file" name="image" accept="image/*" id="file-input" class="file-input">
-        <div class="form-block">
-          <label for="file-input" class="button">Выбрать изображение</label>
-          <button type="submit" class="button">Добавить заметку</button>
+      <div class="add-notes logo">MHFU</div>
+    </header>
+    <ul class="notes">
+      <li class="notes__item" th:each="el : ${posts}">
+        <a th:href="'/note/' + ${el.id}" class="notes__link"></a>
+        <span class="notes__hover">Нажмите чтобы открыть заметку</span>
+        <h3 class="notes__title" th:text="${el.title}" />
+        <div class="notes__text" th:text="${el.text}" />
+        <div class="notes__icons">
+          <div class="notes__icon" th:classappend="${el.isStarred} ? 'icon-bookmark-starred' : ''"></div>
+          <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
         </div>
-      </form>
-    </main>
-  </div>
-  <script src="/js/settings.js"></script>
+      </li>
+    </ul>
+  </aside>
+  <main class="content">
+    <form th:action="@{/}" class="create-note" th:method="post" enctype="multipart/form-data">
+      <input type="text" placeholder="Введите заголовок" class="create-note__title" name="title">
+      <textarea name="text" class="create-note__text" placeholder="Введите текст"></textarea>
+      <label class="preview">
+        <img id="preview-image" src="" alt="" class="preview-image">
+        <button type="button" class="image-del icon-add" onclick="clearInput()"></button>
+      </label>
+      <input type="file" name="image" accept="image/*" id="file-input" class="file-input">
+      <div class="form-block">
+        <label for="file-input" class="button">Выбрать изображение</label>
+        <button type="submit" class="button">Добавить заметку</button>
+      </div>
+    </form>
+  </main>
+</div>
+<script src="/js/settings.js"></script>
 </body>
 </html>

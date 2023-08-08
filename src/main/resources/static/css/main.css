@@ -62,7 +62,7 @@ body {
   .header__link:hover,
   .add-notes:hover,
   .note__item:hover,
-  .button:hover {color: #fff;}
+  .button:hover {}
   .notes__item>:not(.notes__hover) {transition: transform 0.4s, opacity 0.4s;}
   .notes__item:hover>:not(.notes__hover, .notes__link) {opacity: 0;transform: scale(0);}
   .notes__item:hover .notes__hover {
@@ -87,7 +87,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: color 0.3s;
   cursor: pointer;
 }
 .nav-focus::after {
