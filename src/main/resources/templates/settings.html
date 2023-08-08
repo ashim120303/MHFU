@@ -42,15 +42,27 @@
       <button class="modal-btn" id="myBtn">Удалить аккаунт</button>
       <p class="password-error" th:if="${error}" th:text="${error}"></p>
 
-      <div id="theme-container">
-        <form th:action="@{/updateTheme}" th:method="post">
-          <button type="submit" name="theme" value="/css/redTheme.css">Красная тема</button>
+      <div class="theme-title">Нажмите на изображение, что бы выбрать тему!</div>
+      <div class="theme-container">
+        <form class="theme-list" th:action="@{/updateTheme}" th:method="post">
+          <label for="submitRed" style="cursor: pointer;">
+            <img src="/../img/redTheme.png" alt="Theme preview">
+          </label>
+          <button id="submitRed" type="submit" name="theme" value="/css/redTheme.css" style="display: none;">Красная тема</button>
         </form>
-        <form th:action="@{/updateTheme}" th:method="post">
-          <button type="submit" name="theme" value="/css/darkTheme.css">Темная тема</button>
+
+        <form class="theme-list" th:action="@{/updateTheme}" th:method="post">
+          <label for="submitLight" style="cursor: pointer;">
+            <img src="/../img/redTheme.png" alt="Theme preview">
+          </label>
+          <button id="submitLight" type="submit" name="theme" value="/css/lightTheme.css" style="display: none;">Красная тема</button>
         </form>
-        <form th:action="@{/updateTheme}" th:method="post">
-          <button type="submit" name="theme" value="/css/lightTheme.css">Светлая тема</button>
+
+        <form class="theme-list" th:action="@{/updateTheme}" th:method="post">
+          <label for="submitDark" style="cursor: pointer;">
+            <img src="/../img/redTheme.png" alt="Theme preview">
+          </label>
+          <button id="submitDark" type="submit" name="theme" value="/css/darkTheme.css" style="display: none;">Красная тема</button>
         </form>
       </div>
 

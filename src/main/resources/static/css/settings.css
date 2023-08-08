@@ -59,3 +59,19 @@
     width: 20px;
     height: 20px;
 }
+
+.note > .theme-title {
+    font-size: 22px;
+    text-align: center;
+    margin: 16px 0 14px 0;
+}
+.theme-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.theme-list{
+    margin: 0 auto;
+    margin-top: 16px;
+    width: 400px;
+}
