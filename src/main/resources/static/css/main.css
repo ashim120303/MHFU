@@ -218,3 +218,39 @@ body {
 .note>:not(:last-child) {
   margin-bottom: 25px;
 }
+
+.notFound-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.blur-container{
+    width: 50%;
+    height: 60%;
+    background-color: rgba(17, 17, 17, 0.9);
+}
+.notFound-title {
+    text-align: center;
+    font-size: 222px;
+}
+.notFound-text {
+  display: block;
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.underline{
+  position: relative;
+}
+.underline::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: currentColor;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+}

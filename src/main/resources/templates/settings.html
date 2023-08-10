@@ -6,9 +6,9 @@
   <title>MHFU</title>
   <link rel="stylesheet" href="/css/iconsfont.css">
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/settings.css">
   <link id="theme-link" rel="stylesheet" th:href="${userTheme}">
   <link rel="shortcut icon" href="chrome://branding/content/about-logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="/css/settings.css">
 </head>
 <body>
 <div class="wrapper">
@@ -46,21 +46,21 @@
       <div class="theme-container">
         <form class="theme-list" th:action="@{/updateTheme}" th:method="post">
           <label for="submitRed" style="cursor: pointer;">
-            <img src="/../img/redTheme.png" alt="Theme preview">
+            <img src="/../img/redTheme.png" alt="Red Theme">
           </label>
           <button id="submitRed" type="submit" name="theme" value="/css/redTheme.css" style="display: none;">Красная тема</button>
         </form>
 
         <form class="theme-list" th:action="@{/updateTheme}" th:method="post">
           <label for="submitLight" style="cursor: pointer;">
-            <img src="/../img/redTheme.png" alt="Theme preview">
+            <img src="/../img/lightTheme.png" alt="Light Theme">
           </label>
           <button id="submitLight" type="submit" name="theme" value="/css/lightTheme.css" style="display: none;">Красная тема</button>
         </form>
 
         <form class="theme-list" th:action="@{/updateTheme}" th:method="post">
           <label for="submitDark" style="cursor: pointer;">
-            <img src="/../img/redTheme.png" alt="Theme preview">
+            <img src="/../img/darkTheme.png" alt="Dark Theme">
           </label>
           <button id="submitDark" type="submit" name="theme" value="/css/darkTheme.css" style="display: none;">Красная тема</button>
         </form>

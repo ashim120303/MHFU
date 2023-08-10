@@ -71,6 +71,9 @@ public class StarredController {
         if(post.getIsDeleted()){
             return "404";
         }
+        if(!post.getIsStarred()){
+            return "404";
+        }
         List<Post> posts = postRepository.findAllByUserIdAndIsStarredTrueAndIsDeletedFalseOrderByCreatedDateDesc(user.getId());
         model.addAttribute("posts", posts);
         ArrayList<Post> res = new ArrayList<>();
@@ -107,6 +110,9 @@ public class StarredController {
             return "404";
         }
         if(post.getIsDeleted()){
+            return "404";
+        }
+        if(!post.getIsStarred()){
             return "404";
         }
         ArrayList<Post> res = new ArrayList<>();

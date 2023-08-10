@@ -5,11 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>404</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link id="theme-link" rel="stylesheet" th:href="${userTheme}">
 </head>
 <body>
-<p th:text="gfjkkgn"/>
-<h1>404</h1>
-<a th:href="@{/}">главное</a>
+<div class="notFound-container">
+    <div class="blur-container">
+        <h1 class="notFound-title">404</h1>
+        <p class="notFound-text">Запись в базе данных отсутствует.</p>
+        <a class="notFound-text" th:href="@{/}"><span class="underline">На главную</span></a>
+    </div>
+</div>
 </body>
 </html>

@@ -1,3 +1,29 @@
 body{
-    background-color: #fff;
+    background: url("/../img/bg-light.jpg") no-repeat center center;
+    background-size: cover;
+    color: #fff;
+}
+.icon-logout:before {
+  color: #fff;
+}
+.icon-trash:before {
+  color: #fff;
+}
+.icon-bookmark:before {
+  color: #fff;
+}
+.icon-user:before {
+  color: #fff;
+}
+.icon-settings:before {
+  color: #fff;
+}
+.icon-edit:before {
+  color: #fff;
+}
+.icon-help:before {
+  color: #fff;
+}
+.icon-add:before {
+  color: #fff;
 }

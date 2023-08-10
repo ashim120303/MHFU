@@ -1,3 +1,4 @@
 body{
-    background-color: green;
+    background: url("/../img/bg-dark.jpg") no-repeat center center;
+    background-size: cover;
 }
