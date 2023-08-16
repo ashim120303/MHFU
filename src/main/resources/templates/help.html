@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MHFU</title>
+    <link rel="stylesheet" href="/css/iconsfont.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link id="theme-link" rel="stylesheet" th:href="${userTheme}">
+    <link rel="shortcut icon" href="chrome://branding/content/about-logo.png" type="image/x-icon">
+</head>
+<body>
+<div class="wrapper">
+    <aside class="sidebar">
+        <header class="header">
+            <ul class="header__list">
+                <li>
+                    <form th:action="@{/logout}" th:method="post">
+                        <button type="submit" class="header__link icon-logout" title="Выход"></button>
+                    </form>
+                </li>
+                <li><a th:href="@{/settings}" title="Настройки" class="header__link icon-settings"></a></li>
+                <li><a th:href="@{/starred}" title="Закладки" class="header__link icon-bookmark"></a></li>
+                <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
+                <li><a href="" title="Справка" class="header__link icon-help nav-focus"></a></li>
+            </ul>
+            <a class="add-notes" th:href="@{/}"><span class="icon-add"></span> ДОБАВИТЬ ЗАМЕТКУ</a>
+        </header>
+        <ul class="notes">
+            <li class="notes__item" th:each="el : ${posts}">
+                <a th:href="'/note/' + ${el.id}" class="notes__link"></a>
+                <span class="notes__hover">Нажмите чтобы открыть заметку</span>
+                <h3 class="notes__title" th:text="${el.title}" />
+                <div class="notes__text" th:text="${el.text}" />
+                <div class="notes__date" th:text="${#dates.format(el.createdDate, 'dd.MM.yyyy - HH:mm')}"/>
+            </li>
+        </ul>
+    </aside>
+    <main class="content">
+        <div class="note">
+            <h1 class="help-title">Справка</h1>
+            <div class="help-question">
+                <h2 class="help-sub-title">Что такое MHFU?</h2>
+                <p class="help-text">
+                    MHFU (Memory Helps, Functionality Unleashed) - это веб сайт для заметок, написанный на Java. <br>
+                    Функциональность сайта позволяет записывать, хранить, редактировать и удалять заметки.
+                </p>
+            </div>
+            <div class="help-question">
+                <h2 class="help-sub-title">Как добавить заметку?</h2>
+                <p class="help-text">
+                    При входе в на сайт вы сразу попадаете на страницу добавления, заполните нужные поля и нажмите - <br>
+                    "Добавить заметку".
+                </p>
+            </div>
+            <div class="help-question">
+                <h2 class="help-sub-title">Как открыть нужную заметку?</h2>
+                <p class="help-text">
+                    После добавления заметки, слева в сайдбаре будет отображаться список добавленных заметок, <br>
+                    в пунктах списка будут отображаться заголовок, часть текста, дата и время добавления или изменения заметки. <br>
+                    Что бы открыть нужную заметку, нажмите на нее в списке.
+                </p>
+            </div>
+            <div class="help-question">
+                <h2 class="help-sub-title">Как изменить заметку?</h2>
+                <p class="help-text">
+                    Откройте нужную заметку и нажмите на кнопку редактирования (Иконка карандаша), <br>
+                    в открывшейся форме измените нужные поля и нажмите "Обновить".<br>
+                    Если вы удалите все поля и нажмете "Обновить", то заметка удалится навсегда.<br>
+                </p>
+            </div>
+            <div class="help-question">
+                <h2 class="help-sub-title">Как удалить заметку?</h2>
+                <p class="help-text">
+                    Откройте нужную заметку и нажмите на иконку корзины. <br>
+                    После нажатия заметка помещается в корзину, откуда удалится через 30 дней.<br>
+                    Из корзины заметку можно восстановить нажав на зеленную иконку справа, сверху.<br>
+                    Если вы хотите безвозвратно удалить заметку из корзины нажмите на красную иконку корзины.
+                </p>
+            </div>
+            <div class="help-question">
+                <h2 class="help-sub-title">Как добавить заметку в избранное?</h2>
+                <p class="help-text">
+                    Откройте нужную заметку и нажмите на иконку закладки. <br>
+                    Теперь сперва в списке будут отображаться избранные заметки, так же они будут помечены желтой иконкой.<br>
+                    Вы можете открыть страницу только с избранными заметками нажав на иконку закладки в сайдбаре.
+                </p>
+            </div>
+            <div class="help-question">
+                <h2 class="help-sub-title">Как изменить тему?</h2>
+                <p class="help-text">
+                    Нажмите на шестеренку в сайдбаре. <br>
+                    В открывшейся странице нажмите на понравившуюся тему.
+                </p>
+            </div>
+            <div class="help-question">
+                <h2 class="help-sub-title">Навигация</h2>
+                <p class="help-text">
+                    Навигация происходит в сайдбаре.<br>
+                    Первой в списке иконка выхода из аккаунта.<br>
+                    Вторым страница настроек "Шестеренка" (Выбор темы, удаление аккаунта).<br>
+                    Третьим в списке страница закладок (Избранное).<br>
+                    Четвертым в списке корзина.<br>
+                    Пятым справка.<br>
+                    Ниже находится кнопка "ДОБАВИТЬ ЗАМЕТКУ", это ссылка на главную страницу (Страницу добавления заметки).
+                </p>
+            </div>
+            <div class="help-question">
+                <h2 class="help-sub-title">Как Удалить аккаунт?</h2>
+                <p class="help-text">
+                    Перейдите в страницу настроек и нажмите на кнопку "Удалить аккаунт". <br>
+                    В открывшемся окне введите пароль от аккаунта и нажмите "Удалить аккаунт". <br>
+                    Будьте осторожны, при удалении аккаунта удалятся и все его записи (заметки). <br>
+                    После удаления аккаунт и заметки невозможно будет восстановить.
+                </p>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

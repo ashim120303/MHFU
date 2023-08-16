@@ -254,3 +254,19 @@ body {
   bottom: -2px;
   left: 0;
 }
+
+/*--help--*/
+.help-title{
+    text-align: center;
+    font-weight: 600;
+}
+.help-question{
+    margin-bottom: 32px;
+}
+.help-sub-title{
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.help-text{
+    line-height: 140%;
+}
