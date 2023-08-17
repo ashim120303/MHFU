@@ -167,6 +167,7 @@ body {
 .note__text{
     overflow-wrap: break-word; /* разрывает слова, чтобы предотвратить переполнение */
     word-wrap: break-word; /* поддержка для более старых браузеров */
+    white-space: pre-line;
 }
 .preview {width: 0;position: relative;opacity: 0;}
 .preview.preview-show {width: fit-content;opacity: 1;}
