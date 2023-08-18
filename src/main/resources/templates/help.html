@@ -24,7 +24,7 @@
                 <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
                 <li><a href="" title="Справка" class="header__link icon-help nav-focus"></a></li>
             </ul>
-            <a class="add-notes" th:href="@{/}"><span class="icon-add"></span> ДОБАВИТЬ ЗАМЕТКУ</a>
+            <a class="add-notes" th:href="@{/}">НА ГЛАВНУЮ</a>
         </header>
         <ul class="notes">
             <li class="notes__item" th:each="el : ${posts}">
