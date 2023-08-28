@@ -70,3 +70,6 @@ function togglePassword(event, inputId, toggleId) {
         img.src = "/../img/eye.png";
     }
 }
+
+
+// Адаптив

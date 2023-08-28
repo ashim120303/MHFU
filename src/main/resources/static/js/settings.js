@@ -14,11 +14,4 @@ window.onclick = function(event) {
   }
 }
 
-// Смена темы
-document.querySelectorAll('.theme-option').forEach(function(option) {
-    option.addEventListener('click', function() {
-        let theme = this.dataset.theme;
-        document.getElementById('theme-link').href = theme;
-        localStorage.setItem('theme', theme); // сохраняем выбор темы
-    });
-});
+

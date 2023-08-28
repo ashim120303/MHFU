@@ -42,6 +42,27 @@
         </ul>
     </aside>
     <main class="content" th:each="el : ${post}">
+        <div class="burger-menu" id="burger-menu">
+            <div class="burger-icon">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const burgerMenu = document.getElementById('burger-menu');
+              const sidebar = document.querySelector('.sidebar');
+              const content = document.querySelector('.content');
+
+
+
+              burgerMenu.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+                content.classList.toggle('hide');
+              });
+            });
+        </script>
         <form th:action="'/starred/note/'+${el.id} +'/edit'" class="create-note" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" th:value="${el.id}">
             <input type="text" placeholder="Введите заголовок" class="create-note__title" name="title" th:value="${el.title}">

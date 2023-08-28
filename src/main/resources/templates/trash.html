@@ -41,6 +41,27 @@
         </ul>
     </aside>
     <main class="content">
+        <div class="burger-menu" id="burger-menu">
+            <div class="burger-icon">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const burgerMenu = document.getElementById('burger-menu');
+              const sidebar = document.querySelector('.sidebar');
+              const content = document.querySelector('.content');
+
+
+
+              burgerMenu.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+                content.classList.toggle('hide');
+              });
+            });
+        </script>
         <div class="note">
             <div class="note__massage">
                 Заметки добавленные в корзину удаляются через 30 дней после добавления.

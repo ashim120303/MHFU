@@ -271,3 +271,49 @@ body {
 .help-text{
     line-height: 140%;
 }
+
+/*=============Адаптив=============*/
+
+@media (max-width: 767.98px){
+    .sidebar{
+        display: none;
+    }
+    .sidebar.show {
+        display: grid;
+    }
+    .content {
+        width: auto;
+        opacity: 1;
+        padding: 12px;
+        transform: none;
+    }
+    .content.hide {
+        display: none;
+    }
+
+    .burger-menu {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 3;
+        cursor: pointer;
+      }
+
+      .burger-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 20px;
+      }
+
+      .bar {
+        width: 100%;
+        height: 3px;
+        background-color: #aaa;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      .sidebar.grid {
+        display: grid;
+      }
+}
