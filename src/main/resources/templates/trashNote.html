@@ -16,6 +16,15 @@
         <header class="header">
             <ul class="header__list">
                 <li>
+                    <div class="burger-menu" id="hide-menu">
+                        <div class="burger-icon">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+                </li>
+                <li>
                     <form th:action="@{/logout}" th:method="post">
                         <button type="submit" class="header__link icon-logout" title="Выход"></button>
                     </form>
@@ -48,20 +57,7 @@
                 <span class="bar"></span>
             </div>
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              const burgerMenu = document.getElementById('burger-menu');
-              const sidebar = document.querySelector('.sidebar');
-              const content = document.querySelector('.content');
 
-
-
-              burgerMenu.addEventListener('click', () => {
-                sidebar.classList.toggle('show');
-                content.classList.toggle('hide');
-              });
-            });
-        </script>
         <div class="note" th:each="el : ${post}">
             <div class="note__setting">
                 <form th:action="'/note/' + ${el.id} + '/removeForever'" method="post">
@@ -77,6 +73,7 @@
         </div>
     </main>
 </div>
+<script src="/js/response.js"></script>q
 <script src="/js/settings.js"></script>
 </body>
 </html>

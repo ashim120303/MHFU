@@ -281,6 +281,9 @@ body {
     .sidebar.show {
         display: grid;
     }
+    .sidebar.hide-sidebar {
+        display: none;
+    }
     .content {
         width: auto;
         opacity: 1;
@@ -290,7 +293,9 @@ body {
     .content.hide {
         display: none;
     }
-
+    .content.show-content {
+        display: grid;
+    }
     .burger-menu {
         position: fixed;
         top: 20px;
