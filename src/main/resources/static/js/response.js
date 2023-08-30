@@ -5,11 +5,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const content = document.querySelector('.content');
 
     burgerMenu.addEventListener('click', () => {
-      sidebar.classList.toggle('show');
-      content.classList.toggle('hide');
+      sidebar.classList.add('show');
+      content.classList.add('hide');
+      sidebar.classList.remove('hide-sidebar'); // Reset if previously hidden
+      content.classList.remove('show-content'); // Reset if previously shown
     });
+
     hideMenu.addEventListener('click', () => {
-      content.classList.toggle('show-content');
-      sidebar.classList.toggle('hide-sidebar');
+      content.classList.add('show-content');
+      sidebar.classList.add('hide-sidebar');
+      sidebar.classList.remove('show'); // Reset if previously shown
+      content.classList.remove('hide'); // Reset if previously hidden
     });
 });
