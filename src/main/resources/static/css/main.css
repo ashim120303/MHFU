@@ -220,6 +220,7 @@ body {
   margin-bottom: 25px;
 }
 
+/*==============404===========*/
 .notFound-container {
   display: flex;
   flex-direction: column;
@@ -229,7 +230,7 @@ body {
 }
 .blur-container{
     width: 50%;
-    height: 60%;
+    height: 400px;
     background-color: rgba(17, 17, 17, 0.9);
 }
 .notFound-title {
@@ -255,7 +256,7 @@ body {
   bottom: -2px;
   left: 0;
 }
-
+/*==============/404===========*/
 /*--help--*/
 .help-title{
     text-align: center;
@@ -321,4 +322,20 @@ body {
       .sidebar.grid {
         display: grid;
       }
+
+      .blur-container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: -35%
+      }
+}
+
+@media (max-width: 420px){
+    .notFound-title {
+        font-size: 150px;
+    }
 }
