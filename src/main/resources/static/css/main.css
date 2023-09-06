@@ -288,14 +288,14 @@ body {
     .content {
         width: auto;
         opacity: 1;
-        padding: 12px;
+        padding: 0px;
         transform: none;
     }
     .content.hide {
         display: none;
     }
     .content.show-content {
-        display: grid;
+        display: block;
     }
     .burger-menu {
         position: fixed;
