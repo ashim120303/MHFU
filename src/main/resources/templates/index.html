@@ -34,7 +34,7 @@
         <li><a th:href="@{/trash}" title="Корзина" class="header__link icon-trash"></a></li>
         <li><a th:href="@{/help}" title="Справка" class="header__link icon-help"></a></li>
       </ul>
-      <div class="add-notes logo"><span class="underline">MHFU</span></div>
+      <div class="add-notes logo"><a th:href="@{/}"><span class="underline">MHFU</span></a></div>
     </header>
     <ul class="notes">
       <li class="notes__item" th:each="el : ${posts}">

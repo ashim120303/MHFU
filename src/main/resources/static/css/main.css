@@ -11,6 +11,8 @@ img {max-width: 100%;vertical-align: top;}
 input,
 textarea,
 button {font-family: inherit;font-weight: inherit;font-size: inherit;background: transparent;color: inherit;}
+::-webkit-scrollbar {width: 4px; /* Ширина скроллбара */}
+::-webkit-scrollbar-thumb {background-color: #aaa; /* Цвет ползунка скроллбара */}
 
 /* ========== ПОДКЛЮЧЕНИЕ ШРИФТОВ ========== */
 @font-face {font-family: Roboto-c;font-weight: 400;src: url(../fonts/Roboto-Regular.woff2);}
@@ -150,8 +152,12 @@ body {
 .create-note {display: grid;grid-template-rows: auto 1fr auto;gap: 10px;}
 .create-note__title,
 .note__title {
+    margin-top: 35px;
     font-size: 32px;
     text-align: center;
+}
+.create-note__text{
+    overflow-x: hidden;
 }
 .note__massage{
     margin-top: 20px;
@@ -189,7 +195,6 @@ body {
   flex-wrap: wrap;
   gap: 10px;
 }
-
 
 .button {
   border: 2px solid;
@@ -298,7 +303,7 @@ body {
         display: block;
     }
     .burger-menu {
-        position: fixed;
+        position: relative;
         top: 20px;
         left: 20px;
         z-index: 3;
@@ -306,11 +311,17 @@ body {
       }
 
       .burger-icon {
+        position: absolute;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 30px;
         height: 20px;
+      }
+
+      .sidebar.show  .burger-menu,
+      .sidebar.show .burger-icon {
+          position: absolute;
       }
 
       .bar {
@@ -339,3 +350,4 @@ body {
         font-size: 150px;
     }
 }
+
