@@ -79,11 +79,13 @@ body {
 }
 
 @media (max-width: 767px) {
-  .authbox {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
+    .authbox {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        insert: 0;
+    }
 }
 
 /* Показать - Скрыть пароль */

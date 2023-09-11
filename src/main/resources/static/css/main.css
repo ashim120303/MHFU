@@ -142,7 +142,7 @@ body {
 .notes__icon{font-size: 22px;}
 
 /* ================================================================================================================================ */
-.content {overflow-y: scroll;height: 100vh;padding: 25px;}
+.content {overflow-y: scroll;height: 100vh;padding: 25px; overflow-x: hidden;}
 @media (max-width: 767.98px) { /* ======================================================================= */
   .content {width: 0;opacity: 0;padding: 0;transform: scale(0);transition: transform 0.4s;}
   .content.show {opacity: 1;transform: scale(1);width: auto;}
@@ -167,6 +167,9 @@ body {
 @media (max-width: 767.98px) { /* ======================================================================= */
   .create-note__title,
   .note__title {font-size: 25px;}
+  .note__massage{
+    margin-top: 40px;
+  }
 }
 .create-note__text {resize: none;}
 .note__title,
