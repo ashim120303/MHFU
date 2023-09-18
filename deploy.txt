@@ -1,0 +1,25 @@
+ЗАПУСК ИЛИ ДЕПЛОЙ САЙТА MHFU.
+
+Для запуска нужна пустая база данных на MySQL.
+-Установите mysql-server
+-Создайте базу данных - CREATE DATABASE notes_db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+-Создайте пользователя - CREATE USER 'username'@'%' IDENTIFIED BY 'password';
+-Дайте права пользователю - GRANT ALL PRIVILEGES ON notes_db.* TO 'username'@'%';
+-Обновите привелегии - FLUSH PRIVILEGES;
+
+Далее в файле application.properties по пути - MHFU/src/main/resources/application.properties укажите следующие параметры:
+
+server.port = 8081 - Порт, может быть любым
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://localhost:3306/notes_db - Название БД и путь до него.
+spring.datasource.username=username - Пользователь базы данных.
+spring.datasource.password=password - Пароль пользователя.
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.servlet.multipart.max-file-size=25MB
+spring.servlet.multipart.max-request-size=25MB
+Остальное оставьте без изменений
+
+Далее установите jdk 20 версии от Amazon Coretto или от Oracle.
+Дождитесь пока Moven установит все зависимости и можно запускать.
+
+Если вы запускаете проект с локального сервера то путь к сайту будет - http://localhost:8081/
